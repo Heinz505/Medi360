@@ -114,21 +114,23 @@ textarea:focus-visible {
     border-radius: 50%;
     border: 1px solid rgba(255, 255, 255, 0.12);
     pointer-events: none;
+    --float-distance: -16.8px;
     animation: float 9.6s ease-in-out infinite;
 }
 
 .hero-shape-one {
-    width: 15.4rem;
-    height: 15.4rem;
+    width: 20rem;
+    height: 20rem;
     top: 12%;
-    right: 8%;
+    right: 10%;
+    --float-distance: -20.16px;
 }
 
 .hero-shape-two {
-    width: 25.2rem;
-    height: 25.2rem;
+    width: 38rem;
+    height: 38rem;
     bottom: -7rem;
-    left: -5rem;
+    left: 15rem;
     animation-delay: 2s;
 }
 
@@ -592,7 +594,7 @@ textarea:focus-visible {
         transform: translateY(0);
     }
     50% {
-        transform: translateY(-16.8px);
+        transform: translateY(var(--float-distance));
     }
 }
 
