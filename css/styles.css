@@ -15,12 +15,18 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 5.75rem;
 }
 
 body {
     font-family: "Manrope", sans-serif;
     color: var(--medi-ink);
     background: var(--medi-bg);
+    line-height: 1.6;
+}
+
+section[id] {
+    scroll-margin-top: 5.75rem;
 }
 
 a {
@@ -130,7 +136,7 @@ textarea:focus-visible {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--medi-navy);
     font-weight: 800;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -144,6 +150,16 @@ textarea:focus-visible {
     background: var(--medi-amber);
 }
 
+.hero-section .eyebrow,
+.site-footer .eyebrow {
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.hero-section .eyebrow::before,
+.site-footer .eyebrow::before {
+    background: var(--medi-amber);
+}
+
 .hero-title {
     max-width: 11ch;
     line-height: 0.96;
@@ -154,6 +170,7 @@ textarea:focus-visible {
 .hero-copy {
     max-width: 36rem;
     font-size: 1.075rem;
+    color: rgba(255, 255, 255, 0.9);
     animation: fadeUp 0.8s ease 0.15s both;
 }
 
@@ -205,16 +222,20 @@ textarea:focus-visible {
     z-index: 2;
     padding: 0.85rem 1rem;
     border-radius: 1rem;
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(8, 18, 30, 0.8);
     color: var(--medi-white);
     backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.14);
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.16);
 }
 
 .floating-card strong {
     display: block;
     font-size: 0.98rem;
+}
+
+.floating-card .text-white-50 {
+    color: rgba(255, 255, 255, 0.76) !important;
 }
 
 .floating-card-top {
@@ -338,6 +359,15 @@ textarea:focus-visible {
 .about-callout p,
 .showcase-stat p {
     color: var(--medi-slate);
+}
+
+.testimonial-meta {
+    color: #4f5d6b;
+}
+
+.site-footer p,
+.site-footer small {
+    color: rgba(255, 255, 255, 0.8) !important;
 }
 
 .showcase-stat {
