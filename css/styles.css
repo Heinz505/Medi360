@@ -790,6 +790,152 @@ textarea:focus-visible {
     gap: 0.55rem;
 }
 
+.calendar-picker {
+    position: relative;
+    width: 100%;
+}
+
+.calendar-trigger {
+    width: 100%;
+    min-width: 0;
+    text-align: left;
+    cursor: pointer;
+}
+
+.calendar-panel {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 0.45rem);
+    z-index: 20;
+    width: min(32rem, calc(100vw - 1.4rem));
+    max-height: 21rem;
+    overflow: auto;
+    border: 1px solid #d8e3ef;
+    border-radius: 0.9rem;
+    background: #ffffff;
+    box-shadow: 0 20px 30px rgba(17, 42, 69, 0.15);
+    padding: 0.65rem;
+}
+
+.calendar-panel-title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #58708a;
+    margin: 0 0 0.45rem;
+}
+
+.calendar-week-action {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.calendar-week-action span {
+    display: block;
+    font-size: 0.74rem;
+    color: #5e758e;
+}
+
+.calendar-month-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    margin-bottom: 0.55rem;
+}
+
+.calendar-month-nav strong {
+    font-size: 0.88rem;
+    color: #294865;
+}
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 0.3rem;
+    margin-bottom: 0.35rem;
+}
+
+.calendar-weekdays span {
+    text-align: center;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #607994;
+}
+
+.calendar-days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 0.35rem;
+}
+
+.calendar-day-cell {
+    border: 1px solid #d7e2ee;
+    border-radius: 0.52rem;
+    background: #fff;
+    color: #334f69;
+    font-weight: 600;
+    padding: 0.3rem 0.2rem;
+    min-height: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.08rem;
+}
+
+.calendar-day-cell small {
+    font-size: 0.62rem;
+    color: #6a8299;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.calendar-day-cell strong {
+    font-size: 0.88rem;
+    color: #2a4660;
+}
+
+.calendar-day-cell:hover,
+.calendar-day-cell:focus-visible {
+    border-color: rgba(245, 159, 47, 0.65);
+    background: rgba(245, 159, 47, 0.12);
+    color: #6f4208;
+    outline: none;
+}
+
+.calendar-day-cell.blank {
+    border: 1px dashed #e1e9f2;
+    background: #f9fbfe;
+    min-height: 3rem;
+}
+
+.calendar-day-cell.no-data {
+    opacity: 0.38;
+    cursor: not-allowed;
+}
+
+.calendar-day-cell.in-active-week {
+    border-color: rgba(39, 81, 124, 0.45);
+    background: rgba(39, 81, 124, 0.08);
+}
+
+.calendar-day-cell.week-hover {
+    border-color: rgba(245, 159, 47, 0.68);
+    background: rgba(245, 159, 47, 0.14);
+}
+
+.calendar-day-cell.active-day {
+    border-color: #f59f2f;
+    background: rgba(245, 159, 47, 0.16);
+}
+
+.calendar-day-cell.active-day strong,
+.calendar-day-cell.active-day small {
+    color: #6f4208;
+}
+
 .toolbar-cluster .btn.active {
     border-color: rgba(245, 159, 47, 0.5);
     background: rgba(245, 159, 47, 0.15);
@@ -963,6 +1109,20 @@ textarea:focus-visible {
     color: #49637b;
 }
 
+.roster-table thead th .weekday-label {
+    display: block;
+    color: #355572;
+}
+
+.roster-table thead th .date-label {
+    display: block;
+    margin-top: 0.16rem;
+    color: #7b8fa5;
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    text-transform: none;
+}
+
 .roster-table tbody th {
     min-width: 9rem;
     font-size: 0.9rem;
@@ -972,6 +1132,19 @@ textarea:focus-visible {
     display: block;
     color: #607386;
     font-weight: 500;
+}
+
+.roster-table tbody tr {
+    transition: background-color 180ms ease, box-shadow 180ms ease, border-color 180ms ease, opacity 180ms ease;
+}
+
+.roster-table tbody tr.row-highlight {
+    background: rgba(245, 159, 47, 0.1);
+    box-shadow: inset 0 0 0 2px rgba(245, 159, 47, 0.38);
+}
+
+.roster-table tbody tr.row-muted {
+    opacity: 0.58;
 }
 
 .shift-chip {
@@ -1090,6 +1263,21 @@ textarea:focus-visible {
         padding: 0.8rem;
     }
 
+    .calendar-trigger {
+        width: 100%;
+    }
+
+    .calendar-panel {
+        left: 0;
+        right: auto;
+        width: min(100%, 24rem);
+    }
+
+    .calendar-weekdays,
+    .calendar-days-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
     .filters-row,
     .kpi-row,
     .chart-row {
@@ -1123,6 +1311,12 @@ textarea:focus-visible {
         background: #f8fbff;
         padding: 0.55rem;
         margin-bottom: 0.75rem;
+    }
+
+    .roster-table tbody tr.row-highlight {
+        background: rgba(245, 159, 47, 0.14);
+        border-color: rgba(245, 159, 47, 0.55);
+        box-shadow: inset 0 0 0 1px rgba(245, 159, 47, 0.48);
     }
 
     .roster-table tbody th {

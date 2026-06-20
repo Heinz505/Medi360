@@ -42,25 +42,7 @@
                     <div>
                         <span class="eyebrow">Weekly roster</span>
                         <h1>Operations Dashboard</h1>
-                        <p>Monday 12 Aug to Sunday 18 Aug</p>
-                    </div>
-
-                    <div class="toolbar-cluster">
-                        <div class="btn-group" role="group" aria-label="Date navigation">
-                            <button type="button" class="btn btn-outline-secondary btn-sm" id="prevWeekBtn">Prev</button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm" id="todayBtn">Today</button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm" id="nextWeekBtn">Next</button>
-                        </div>
-
-                        <div class="btn-group" role="group" aria-label="Roster view mode">
-                            <button type="button" class="btn btn-outline-secondary btn-sm active" data-view="week" aria-pressed="true">Week view</button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm" data-view="day" aria-pressed="false">Day focus</button>
-                        </div>
-
-                        <div class="btn-group" role="group" aria-label="Density toggle">
-                            <button type="button" class="btn btn-outline-secondary btn-sm active" data-density="comfortable" aria-pressed="true">Comfortable</button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm" data-density="compact" aria-pressed="false">Compact</button>
-                        </div>
+                        <p id="currentRangeLabel">Monday 12 Aug to Sunday 18 Aug</p>
                     </div>
                 </div>
 
@@ -68,11 +50,6 @@
                     <label class="visually-hidden" for="staffFilter">Filter by staff member</label>
                     <select id="staffFilter" class="form-select form-select-sm">
                         <option value="all">All staff</option>
-                        <option value="Aisha Patel">Aisha Patel</option>
-                        <option value="Liam Carter">Liam Carter</option>
-                        <option value="Mina Lopez">Mina Lopez</option>
-                        <option value="Jonah Price">Jonah Price</option>
-                        <option value="Nora Hayes">Nora Hayes</option>
                     </select>
 
                     <label class="visually-hidden" for="shiftFilter">Filter by shift type</label>
@@ -86,23 +63,28 @@
                     <label class="visually-hidden" for="departmentFilter">Filter by department</label>
                     <select id="departmentFilter" class="form-select form-select-sm">
                         <option value="all">All departments</option>
-                        <option value="ICU">ICU</option>
-                        <option value="Emergency">Emergency</option>
-                        <option value="Pediatrics">Pediatrics</option>
-                        <option value="Surgery">Surgery</option>
                     </select>
 
-                    <label class="visually-hidden" for="dayFocus">Day focus</label>
-                    <select id="dayFocus" class="form-select form-select-sm">
-                        <option value="all">All days</option>
-                        <option value="mon">Monday</option>
-                        <option value="tue">Tuesday</option>
-                        <option value="wed">Wednesday</option>
-                        <option value="thu">Thursday</option>
-                        <option value="fri">Friday</option>
-                        <option value="sat">Saturday</option>
-                        <option value="sun">Sunday</option>
-                    </select>
+                    <div class="calendar-picker" id="calendarPickerWrap">
+                        <button type="button" id="calendarTrigger" class="form-select form-select-sm calendar-trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="calendarPanel">
+                            <span id="calendarTriggerLabel">Select week</span>
+                        </button>
+                        <section id="calendarPanel" class="calendar-panel" role="dialog" aria-label="Week calendar" hidden>
+                            <p class="calendar-panel-title">Choose a calendar date</p>
+                            <div class="calendar-week-action">
+                                <span id="calendarWeekHint">Hover a day to preview that week</span>
+                            </div>
+                            <div class="calendar-month-nav" aria-label="Calendar month navigation">
+                                <button type="button" class="btn btn-outline-secondary btn-sm" id="calendarPrevMonth">Prev month</button>
+                                <strong id="calendarMonthLabel">Month</strong>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" id="calendarNextMonth">Next month</button>
+                            </div>
+                            <div class="calendar-weekdays" aria-hidden="true">
+                                <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                            </div>
+                            <div id="calendarDaysGrid" class="calendar-days-grid"></div>
+                        </section>
+                    </div>
                 </div>
             </header>
 
@@ -170,56 +152,17 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Staff</th>
+                                    <th scope="col">Sun</th>
                                     <th scope="col">Mon</th>
                                     <th scope="col">Tue</th>
                                     <th scope="col">Wed</th>
                                     <th scope="col">Thu</th>
                                     <th scope="col">Fri</th>
                                     <th scope="col">Sat</th>
-                                    <th scope="col">Sun</th>
                                 </tr>
                             </thead>
                             <tbody id="rosterBody">
-                                <tr>
-                                    <th scope="row">Aisha Patel <small>ICU</small></th>
-                                    <td><button class="shift-chip morning" data-staff="Aisha Patel" data-department="ICU" data-day="mon" data-shift="morning" data-time="07:00 - 15:00" data-notes="Ventilator handover required at 07:10.">Morning</button></td>
-                                    <td><button class="shift-chip morning" data-staff="Aisha Patel" data-department="ICU" data-day="tue" data-shift="morning" data-time="07:00 - 15:00" data-notes="Pair with Liam for discharge prep.">Morning</button></td>
-                                    <td><button class="shift-chip afternoon" data-staff="Aisha Patel" data-department="ICU" data-day="wed" data-shift="afternoon" data-time="15:00 - 23:00" data-notes="Cover step-down beds 8 to 12.">Afternoon</button></td>
-                                    <td><button class="shift-chip off" data-staff="Aisha Patel" data-department="ICU" data-day="thu" data-shift="off" data-time="Off duty" data-notes="Planned recovery day.">Off</button></td>
-                                    <td><button class="shift-chip night" data-staff="Aisha Patel" data-department="ICU" data-day="fri" data-shift="night" data-time="23:00 - 07:00" data-notes="One vacancy adjacent to this shift.">Night</button></td>
-                                    <td><button class="shift-chip off" data-staff="Aisha Patel" data-department="ICU" data-day="sat" data-shift="off" data-time="Off duty" data-notes="Unavailable on weekends.">Off</button></td>
-                                    <td><button class="shift-chip off" data-staff="Aisha Patel" data-department="ICU" data-day="sun" data-shift="off" data-time="Off duty" data-notes="Unavailable on weekends.">Off</button></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Liam Carter <small>Emergency</small></th>
-                                    <td><button class="shift-chip afternoon" data-staff="Liam Carter" data-department="Emergency" data-day="mon" data-shift="afternoon" data-time="14:00 - 22:00" data-notes="Triage surge expected after 18:00.">Afternoon</button></td>
-                                    <td><button class="shift-chip night" data-staff="Liam Carter" data-department="Emergency" data-day="tue" data-shift="night" data-time="22:00 - 06:00" data-notes="High-acuity night assignment.">Night</button></td>
-                                    <td><button class="shift-chip off" data-staff="Liam Carter" data-department="Emergency" data-day="wed" data-shift="off" data-time="Off duty" data-notes="Rest day after overnight.">Off</button></td>
-                                    <td><button class="shift-chip morning" data-staff="Liam Carter" data-department="Emergency" data-day="thu" data-shift="morning" data-time="06:00 - 14:00" data-notes="Lead first-shift triage board.">Morning</button></td>
-                                    <td><button class="shift-chip afternoon" data-staff="Liam Carter" data-department="Emergency" data-day="fri" data-shift="afternoon" data-time="14:00 - 22:00" data-notes="Monitor handoff at 21:45.">Afternoon</button></td>
-                                    <td><button class="shift-chip night" data-staff="Liam Carter" data-department="Emergency" data-day="sat" data-shift="night" data-time="22:00 - 06:00" data-notes="Secondary trauma coverage.">Night</button></td>
-                                    <td><button class="shift-chip off" data-staff="Liam Carter" data-department="Emergency" data-day="sun" data-shift="off" data-time="Off duty" data-notes="Weekend rest period.">Off</button></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Mina Lopez <small>Pediatrics</small></th>
-                                    <td><button class="shift-chip morning" data-staff="Mina Lopez" data-department="Pediatrics" data-day="mon" data-shift="morning" data-time="08:00 - 16:00" data-notes="Ward rounds at 08:30.">Morning</button></td>
-                                    <td><button class="shift-chip morning" data-staff="Mina Lopez" data-department="Pediatrics" data-day="tue" data-shift="morning" data-time="08:00 - 16:00" data-notes="Vaccination clinic support.">Morning</button></td>
-                                    <td><button class="shift-chip morning" data-staff="Mina Lopez" data-department="Pediatrics" data-day="wed" data-shift="morning" data-time="08:00 - 16:00" data-notes="Parent consultation block.">Morning</button></td>
-                                    <td><button class="shift-chip afternoon" data-staff="Mina Lopez" data-department="Pediatrics" data-day="thu" data-shift="afternoon" data-time="12:00 - 20:00" data-notes="Evening handoff with Jonah.">Afternoon</button></td>
-                                    <td><button class="shift-chip off" data-staff="Mina Lopez" data-department="Pediatrics" data-day="fri" data-shift="off" data-time="Off duty" data-notes="Scheduled leave.">Off</button></td>
-                                    <td><button class="shift-chip morning" data-staff="Mina Lopez" data-department="Pediatrics" data-day="sat" data-shift="morning" data-time="08:00 - 16:00" data-notes="Weekend clinic coverage.">Morning</button></td>
-                                    <td><button class="shift-chip off" data-staff="Mina Lopez" data-department="Pediatrics" data-day="sun" data-shift="off" data-time="Off duty" data-notes="Weekend rest period.">Off</button></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Jonah Price <small>Surgery</small></th>
-                                    <td><button class="shift-chip night" data-staff="Jonah Price" data-department="Surgery" data-day="mon" data-shift="night" data-time="21:00 - 05:00" data-notes="Post-op ward watchlist active.">Night</button></td>
-                                    <td><button class="shift-chip off" data-staff="Jonah Price" data-department="Surgery" data-day="tue" data-shift="off" data-time="Off duty" data-notes="Recovery period.">Off</button></td>
-                                    <td><button class="shift-chip afternoon" data-staff="Jonah Price" data-department="Surgery" data-day="wed" data-shift="afternoon" data-time="13:00 - 21:00" data-notes="Operating room turnover lead.">Afternoon</button></td>
-                                    <td><button class="shift-chip afternoon" data-staff="Jonah Price" data-department="Surgery" data-day="thu" data-shift="afternoon" data-time="13:00 - 21:00" data-notes="Support orthopedics list.">Afternoon</button></td>
-                                    <td><button class="shift-chip night" data-staff="Jonah Price" data-department="Surgery" data-day="fri" data-shift="night" data-time="21:00 - 05:00" data-notes="On-call response linked.">Night</button></td>
-                                    <td><button class="shift-chip night" data-staff="Jonah Price" data-department="Surgery" data-day="sat" data-shift="night" data-time="21:00 - 05:00" data-notes="Weekend emergency theater standby.">Night</button></td>
-                                    <td><button class="shift-chip off" data-staff="Jonah Price" data-department="Surgery" data-day="sun" data-shift="off" data-time="Off duty" data-notes="Off after overnight blocks.">Off</button></td>
-                                </tr>
+                                <!-- Rows generated from embedded JSON -->
                             </tbody>
                         </table>
                     </div>
@@ -257,18 +200,78 @@
         </div>
     </div>
 
+        <script type="application/json" id="rosterData">{
+    "days": [
+        {"key": "sun", "label": "Sun"},
+        {"key": "mon", "label": "Mon"},
+        {"key": "tue", "label": "Tue"},
+        {"key": "wed", "label": "Wed"},
+        {"key": "thu", "label": "Thu"},
+        {"key": "fri", "label": "Fri"},
+        {"key": "sat", "label": "Sat"}
+    ],
+    "weeks": [
+        {"id": "2026-W45", "start": "2026-11-01"},
+        {"id": "2026-W46", "start": "2026-11-08"},
+        {"id": "2026-W47", "start": "2026-11-15"},
+        {"id": "2026-W48", "start": "2026-11-22"},
+        {"id": "2026-W49", "start": "2026-11-29"},
+        {"id": "2026-W50", "start": "2026-12-06"},
+        {"id": "2026-W51", "start": "2026-12-13"},
+        {"id": "2026-W52", "start": "2026-12-20"},
+        {"id": "2026-W53", "start": "2026-12-27"},
+        {"id": "2027-W01", "start": "2027-01-03"}
+    ],
+    "shiftCatalog": {
+        "morning": {"label": "Morning", "time": "07:00 - 15:00", "defaultNote": "Morning block coverage."},
+        "afternoon": {"label": "Afternoon", "time": "14:00 - 22:00", "defaultNote": "Afternoon block coverage."},
+        "night": {"label": "Night", "time": "22:00 - 06:00", "defaultNote": "Night block coverage."},
+        "off": {"label": "Off", "time": "Off duty", "defaultNote": "Scheduled day off."}
+    },
+    "staff": [
+        {"name": "Aisha Patel", "department": "ICU", "templates": [["morning","morning","morning","off","morning","off","off"],["morning","morning","afternoon","off","morning","off","off"]], "notes": {"morning": "ICU rounds and handover sequence in week {week}.", "afternoon": "Step-down bay support in week {week}.", "off": "Protected recovery day."}},
+        {"name": "Liam Carter", "department": "Emergency", "templates": [["afternoon","night","off","morning","afternoon","night","off"],["afternoon","afternoon","off","morning","night","night","off"]], "notes": {"morning": "Lead triage board at start of shift.", "afternoon": "Emergency intake surge support.", "night": "High-acuity emergency coverage.", "off": "Recovery after high-intensity block."}},
+        {"name": "Mina Lopez", "department": "Pediatrics", "templates": [["morning","morning","morning","morning","off","morning","off"],["morning","morning","morning","afternoon","off","morning","off"]], "notes": {"morning": "Pediatrics clinic and family consult flow.", "afternoon": "Evening pediatric handover support.", "off": "Planned pediatric leave day."}},
+        {"name": "Jonah Price", "department": "Surgery", "templates": [["night","off","afternoon","afternoon","night","night","off"],["night","off","night","afternoon","night","off","off"]], "notes": {"afternoon": "Operating room turnover lead.", "night": "Post-op emergency standby.", "off": "Recovery after theater call."}},
+        {"name": "Nora Hayes", "department": "ICU", "templates": [["afternoon","afternoon","night","off","morning","morning","off"],["afternoon","night","night","off","morning","off","off"]], "notes": {"morning": "ICU discharge prep and continuity.", "afternoon": "ICU relief and medication handover.", "night": "Overnight critical care monitoring.", "off": "Training or rest day."}},
+        {"name": "Ethan Brooks", "department": "Emergency", "templates": [["morning","afternoon","afternoon","night","off","afternoon","night"],["morning","afternoon","night","night","off","afternoon","off"]], "notes": {"morning": "Early triage lane coverage.", "afternoon": "Trauma room readiness support.", "night": "Night escalation response.", "off": "Recovery day."}},
+        {"name": "Sofia Kim", "department": "Cardiology", "templates": [["morning","morning","off","afternoon","afternoon","off","morning"],["morning","morning","off","afternoon","morning","off","morning"]], "notes": {"morning": "Cardiology rounds and diagnostics.", "afternoon": "Catheter and follow-up clinic support.", "off": "Academic or recovery block."}},
+        {"name": "Noah Bennett", "department": "Radiology", "templates": [["night","off","morning","morning","afternoon","afternoon","off"],["night","off","morning","afternoon","afternoon","off","off"]], "notes": {"morning": "MRI and CT queue balancing.", "afternoon": "Backlog and trauma imaging coverage.", "night": "On-call imaging support.", "off": "Post-overnight recovery."}},
+        {"name": "Priya Nair", "department": "Pediatrics", "templates": [["afternoon","morning","morning","off","morning","afternoon","off"],["afternoon","morning","off","off","morning","afternoon","off"]], "notes": {"morning": "Vaccination and discharge education flow.", "afternoon": "Pediatric triage and overflow cover.", "off": "Planned leave block."}},
+        {"name": "Marco Ruiz", "department": "Surgery", "templates": [["morning","afternoon","night","off","afternoon","morning","off"],["morning","afternoon","night","off","night","morning","off"]], "notes": {"morning": "Surgical prep and checklist control.", "afternoon": "Theater support and turnover.", "night": "Emergency surgery standby.", "off": "Compensatory rest."}},
+        {"name": "Elena Park", "department": "Maternity", "templates": [["morning","afternoon","afternoon","morning","off","morning","night"],["morning","afternoon","off","morning","off","morning","night"]], "notes": {"morning": "Labor ward rounds and monitoring.", "afternoon": "Postnatal admissions coordination.", "night": "High-risk maternity overnight watch.", "off": "Scheduled leave day."}},
+        {"name": "Owen Blake", "department": "ICU", "templates": [["night","night","off","morning","morning","off","night"],["night","night","off","morning","off","off","night"]], "notes": {"morning": "ICU device checks and quality handover.", "night": "Critical-care overnight lead.", "off": "Rest after back-to-back nights."}},
+        {"name": "Chloe Dantas", "department": "Oncology", "templates": [["morning","morning","afternoon","off","afternoon","off","morning"],["morning","morning","afternoon","off","morning","off","morning"]], "notes": {"morning": "Oncology treatment continuity and consults.", "afternoon": "Infusion and evening treatment support.", "off": "Conference or recovery day."}},
+        {"name": "Ravi Mehta", "department": "Emergency", "templates": [["afternoon","off","night","night","morning","afternoon","off"],["afternoon","off","night","morning","morning","afternoon","off"]], "notes": {"morning": "Discharge and throughput optimization.", "afternoon": "Ambulance intake and triage support.", "night": "Fast-track night response lead.", "off": "Scheduled rest period."}},
+        {"name": "Tara Collins", "department": "Cardiology", "templates": [["off","morning","morning","afternoon","afternoon","morning","off"],["off","morning","morning","afternoon","morning","morning","off"]], "notes": {"morning": "ECG and diagnostics operations.", "afternoon": "Cardiac follow-up and cath-lab prep.", "off": "Protected leave day."}}
+    ]
+}</script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         (function () {
-            const shiftButtons = Array.from(document.querySelectorAll('.shift-chip'));
+            const rosterData = JSON.parse(document.getElementById('rosterData').textContent);
+            const rosterBody = document.getElementById('rosterBody');
             const staffFilter = document.getElementById('staffFilter');
             const shiftFilter = document.getElementById('shiftFilter');
             const deptFilter = document.getElementById('departmentFilter');
-            const dayFocus = document.getElementById('dayFocus');
-            const viewButtons = Array.from(document.querySelectorAll('[data-view]'));
-            const densityButtons = Array.from(document.querySelectorAll('[data-density]'));
-            const rosterTable = document.getElementById('rosterTable');
-            const dayHeaders = Array.from(rosterTable.querySelectorAll('thead th')).slice(1).map((th) => th.textContent.trim());
+            const calendarPickerWrap = document.getElementById('calendarPickerWrap');
+            const calendarTrigger = document.getElementById('calendarTrigger');
+            const calendarTriggerLabel = document.getElementById('calendarTriggerLabel');
+            const calendarPanel = document.getElementById('calendarPanel');
+            const calendarPrevMonth = document.getElementById('calendarPrevMonth');
+            const calendarNextMonth = document.getElementById('calendarNextMonth');
+            const calendarMonthLabel = document.getElementById('calendarMonthLabel');
+            const calendarDaysGrid = document.getElementById('calendarDaysGrid');
+            const calendarWeekHint = document.getElementById('calendarWeekHint');
+            const currentRangeLabel = document.getElementById('currentRangeLabel');
+            const dayHeaders = rosterData.days.map((day) => day.label);
+            const templateDayOrder = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+            let shiftButtons = [];
+            let currentWeekIndex = 0;
+            let weeklyStaff = [];
+            let calendarMonthCursor = null;
+            let hoveredWeekIndex = null;
             const details = {
                 staff: document.getElementById('detailStaff'),
                 department: document.getElementById('detailDepartment'),
@@ -283,24 +286,320 @@
                 return names[value] || value;
             }
 
+            function titleCase(value) {
+                return value.charAt(0).toUpperCase() + value.slice(1);
+            }
+
+            function parseIsoDate(value) {
+                const parts = value.split('-').map(Number);
+                return new Date(parts[0], parts[1] - 1, parts[2]);
+            }
+
+            function addDays(baseDate, days) {
+                const next = new Date(baseDate);
+                next.setDate(baseDate.getDate() + days);
+                return next;
+            }
+
+            function toIsoDate(value) {
+                const year = value.getFullYear();
+                const month = String(value.getMonth() + 1).padStart(2, '0');
+                const day = String(value.getDate()).padStart(2, '0');
+                return year + '-' + month + '-' + day;
+            }
+
+            function formatShortMonth(value) {
+                return new Intl.DateTimeFormat('en-GB', {
+                    month: 'short'
+                }).format(value);
+            }
+
+            function formatMonthYear(value) {
+                return new Intl.DateTimeFormat('en-GB', {
+                    month: 'long',
+                    year: 'numeric'
+                }).format(value);
+            }
+
+            function formatWeekRangeText(index) {
+                const start = getWeekStart(index);
+                const end = getWeekEnd(index);
+                return formatShortMonth(start) + ' ' + String(start.getDate()).padStart(2, '0') + ' to ' + formatShortMonth(end) + ' ' + String(end.getDate()).padStart(2, '0');
+            }
+
+            function dateOnly(value) {
+                return new Date(value.getFullYear(), value.getMonth(), value.getDate());
+            }
+
+            function dateInRange(value, start, end) {
+                const target = dateOnly(value).getTime();
+                return target >= dateOnly(start).getTime() && target <= dateOnly(end).getTime();
+            }
+
+            function startOfMonth(value) {
+                return new Date(value.getFullYear(), value.getMonth(), 1);
+            }
+
+            function addMonths(value, amount) {
+                return new Date(value.getFullYear(), value.getMonth() + amount, 1);
+            }
+
+            function isSameMonth(a, b) {
+                return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth();
+            }
+
+            function getWeekStart(index) {
+                return parseIsoDate(rosterData.weeks[index].start);
+            }
+
+            function getWeekEnd(index) {
+                return addDays(getWeekStart(index), 6);
+            }
+
+            function findWeekIndexByDate(value) {
+                for (let index = 0; index < rosterData.weeks.length; index += 1) {
+                    const start = getWeekStart(index);
+                    const end = getWeekEnd(index);
+                    if (dateInRange(value, start, end)) {
+                        return index;
+                    }
+                }
+                return -1;
+            }
+
+            function formatDate(value) {
+                return new Intl.DateTimeFormat('en-GB', {
+                    weekday: 'long',
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric'
+                }).format(value);
+            }
+
+            function formatDetailDate(value) {
+                return new Intl.DateTimeFormat('en-GB', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric'
+                }).format(value);
+            }
+
+            function getDateForDayKey(dayKey) {
+                const dayIndex = rosterData.days.findIndex((day) => day.key === dayKey);
+                if (dayIndex === -1) {
+                    return null;
+                }
+                return addDays(getWeekStart(currentWeekIndex), dayIndex);
+            }
+
+            function buildWeekRoster(weekIndex) {
+                return rosterData.staff.map((member) => {
+                    const template = member.templates[weekIndex % member.templates.length];
+                    const shifts = {};
+
+                    templateDayOrder.forEach((dayKey, dayIndex) => {
+                        const type = template[dayIndex] || 'off';
+                        const shiftDef = rosterData.shiftCatalog[type] || rosterData.shiftCatalog.off;
+                        const notesByType = member.notes || {};
+                        const noteTemplate = notesByType[type] || shiftDef.defaultNote;
+                        const notes = noteTemplate.replace('{week}', String(weekIndex + 1));
+
+                        shifts[dayKey] = {
+                            type,
+                            time: shiftDef.time,
+                            notes
+                        };
+                    });
+
+                    return {
+                        name: member.name,
+                        department: member.department,
+                        shifts
+                    };
+                });
+            }
+
+            function updateRangeText() {
+                const activeWeek = rosterData.weeks[currentWeekIndex];
+                const start = parseIsoDate(activeWeek.start);
+                const end = addDays(start, 6);
+                currentRangeLabel.textContent = formatDate(start) + ' to ' + formatDate(end);
+            }
+
+            function updateCalendarTriggerLabel() {
+                const start = getWeekStart(currentWeekIndex);
+                const end = getWeekEnd(currentWeekIndex);
+                calendarTriggerLabel.textContent = formatShortMonth(start) + ' ' + String(start.getDate()).padStart(2, '0') + ' to ' + formatShortMonth(end) + ' ' + String(end.getDate()).padStart(2, '0');
+            }
+
+            function updateRosterColumnHeaders() {
+                const headerCells = Array.from(document.querySelectorAll('#rosterTable thead th')).slice(1);
+                const weekStart = getWeekStart(currentWeekIndex);
+
+                headerCells.forEach((cell, index) => {
+                    const day = rosterData.days[index];
+                    const date = addDays(weekStart, index);
+                    cell.innerHTML = '<span class="weekday-label">' + day.label + '</span><span class="date-label">' + formatShortMonth(date) + ' ' + String(date.getDate()).padStart(2, '0') + '</span>';
+                });
+            }
+
+            function shiftCell(staff) {
+                return rosterData.days.map((day) => {
+                    const shift = staff.shifts[day.key] || { type: 'off', time: 'Off duty', notes: 'No assignment set.' };
+                    const type = shift.type;
+                    const label = type === 'off' ? 'Off' : titleCase(type);
+                    return '<td><button class="shift-chip ' + type + '" data-staff="' + staff.name + '" data-department="' + staff.department + '" data-day="' + day.key + '" data-shift="' + type + '" data-time="' + shift.time + '" data-notes="' + shift.notes + '">' + label + '</button></td>';
+                }).join('');
+            }
+
+            function renderRoster() {
+                weeklyStaff = buildWeekRoster(currentWeekIndex);
+                rosterBody.innerHTML = weeklyStaff.map((staff) => {
+                    return '<tr><th scope="row">' + staff.name + ' <small>' + staff.department + '</small></th>' + shiftCell(staff) + '</tr>';
+                }).join('');
+                shiftButtons = Array.from(document.querySelectorAll('.shift-chip'));
+            }
+
+            function renderFilterOptions() {
+                const staffOptions = rosterData.staff.map((staff) => '<option value="' + staff.name + '">' + staff.name + '</option>').join('');
+                const departments = [...new Set(rosterData.staff.map((staff) => staff.department))];
+                const deptOptions = departments.map((dept) => '<option value="' + dept + '">' + dept + '</option>').join('');
+                staffFilter.insertAdjacentHTML('beforeend', staffOptions);
+                deptFilter.insertAdjacentHTML('beforeend', deptOptions);
+            }
+
+            function renderCalendarMonth() {
+                const monthStart = startOfMonth(calendarMonthCursor || getWeekStart(currentWeekIndex));
+                calendarMonthCursor = monthStart;
+                calendarMonthLabel.textContent = formatMonthYear(monthStart);
+
+                const scheduleMin = getWeekStart(0);
+                const scheduleMax = getWeekEnd(rosterData.weeks.length - 1);
+                const firstWeekday = monthStart.getDay();
+                const daysInMonth = new Date(monthStart.getFullYear(), monthStart.getMonth() + 1, 0).getDate();
+                const cells = [];
+
+                for (let i = 0; i < firstWeekday; i += 1) {
+                    cells.push('<span class="calendar-day-cell blank" aria-hidden="true"></span>');
+                }
+
+                for (let day = 1; day <= daysInMonth; day += 1) {
+                    const dayDate = new Date(monthStart.getFullYear(), monthStart.getMonth(), day);
+                    const iso = toIsoDate(dayDate);
+                    const weekIndex = findWeekIndexByDate(dayDate);
+                    const hasData = weekIndex !== -1 && dateInRange(dayDate, scheduleMin, scheduleMax);
+                    const inActiveWeek = hasData && weekIndex === currentWeekIndex;
+
+                    cells.push('<button type="button" class="calendar-day-cell' + (hasData ? '' : ' no-data') + (inActiveWeek ? ' in-active-week' : '') + '" data-iso="' + iso + '" data-week-index="' + weekIndex + '"' + (hasData ? '' : ' disabled') + '><small>' + formatShortMonth(dayDate) + '</small><strong>' + String(day).padStart(2, '0') + '</strong></button>');
+                }
+
+                calendarDaysGrid.innerHTML = cells.join('');
+                calendarPrevMonth.disabled = isSameMonth(monthStart, startOfMonth(scheduleMin));
+                calendarNextMonth.disabled = isSameMonth(monthStart, startOfMonth(scheduleMax));
+                setHoveredWeek(hoveredWeekIndex);
+            }
+
+            function setHoveredWeek(weekIndex) {
+                hoveredWeekIndex = Number.isInteger(weekIndex) && weekIndex >= 0 ? weekIndex : null;
+                const dayCells = Array.from(calendarDaysGrid.querySelectorAll('.calendar-day-cell[data-week-index]'));
+                dayCells.forEach((cell) => {
+                    const cellWeek = Number(cell.dataset.weekIndex);
+                    cell.classList.toggle('week-hover', hoveredWeekIndex !== null && cellWeek === hoveredWeekIndex);
+                });
+
+                if (hoveredWeekIndex === null) {
+                    calendarWeekHint.textContent = 'Hover a day to preview that week';
+                    return;
+                }
+
+                calendarWeekHint.textContent = 'Week preview: ' + formatWeekRangeText(hoveredWeekIndex);
+            }
+
+            function findClosestWeekIndex() {
+                const today = new Date();
+                let bestIndex = 0;
+                let bestDistance = Number.POSITIVE_INFINITY;
+
+                rosterData.weeks.forEach((week, index) => {
+                    const start = parseIsoDate(week.start);
+                    const distance = Math.abs(start.getTime() - today.getTime());
+                    if (distance < bestDistance) {
+                        bestDistance = distance;
+                        bestIndex = index;
+                    }
+                });
+
+                return bestIndex;
+            }
+
+            function markActiveCalendarSelection() {
+                renderCalendarMonth();
+            }
+
+            function openCalendarPanel() {
+                calendarMonthCursor = startOfMonth(getWeekStart(currentWeekIndex));
+                calendarPanel.hidden = false;
+                calendarTrigger.setAttribute('aria-expanded', 'true');
+                setHoveredWeek(currentWeekIndex);
+                markActiveCalendarSelection();
+            }
+
+            function closeCalendarPanel() {
+                calendarPanel.hidden = true;
+                calendarTrigger.setAttribute('aria-expanded', 'false');
+            }
+
+            function refreshWeekView() {
+                updateRangeText();
+                updateCalendarTriggerLabel();
+                updateRosterColumnHeaders();
+                markActiveCalendarSelection();
+                renderRoster();
+                applyMobileDayLabels();
+                bindShiftSelection();
+                const firstShift = shiftButtons.find((btn) => btn.dataset.shift !== 'off') || shiftButtons[0];
+                if (firstShift) {
+                    firstShift.click();
+                }
+                applyFilters();
+            }
+
             function applyFilters() {
                 const staff = staffFilter.value;
                 const shift = shiftFilter.value;
                 const dept = deptFilter.value;
-                const day = dayFocus.value;
+                const anyFilterActive = staff !== 'all' || dept !== 'all' || shift !== 'all';
 
-                shiftButtons.forEach((btn) => {
-                    const okStaff = staff === 'all' || btn.dataset.staff === staff;
-                    const okShift = shift === 'all' || btn.dataset.shift === shift;
-                    const okDept = dept === 'all' || btn.dataset.department === dept;
-                    const okDay = day === 'all' || btn.dataset.day === day;
-                    const visible = okStaff && okShift && okDept && okDay;
-                    btn.closest('td').classList.toggle('cell-muted', !visible);
+                const rows = Array.from(rosterBody.querySelectorAll('tr'));
+                rows.forEach((row) => {
+                    const rowButtons = Array.from(row.querySelectorAll('.shift-chip'));
+                    if (rowButtons.length === 0) {
+                        return;
+                    }
+
+                    const rowStaff = rowButtons[0].dataset.staff;
+                    const rowDept = rowButtons[0].dataset.department;
+                    const rowStaffMatch = staff === 'all' || rowStaff === staff;
+                    const rowDeptMatch = dept === 'all' || rowDept === dept;
+                    const rowScopeMatch = rowStaffMatch && rowDeptMatch;
+                    let rowHasVisibleCell = false;
+
+                    rowButtons.forEach((btn) => {
+                        const okShift = shift === 'all' || btn.dataset.shift === shift;
+                        const visible = rowScopeMatch && okShift;
+                        if (visible) {
+                            rowHasVisibleCell = true;
+                        }
+                        btn.closest('td').classList.toggle('cell-muted', !visible);
+                    });
+
+                    row.classList.toggle('row-highlight', anyFilterActive && rowHasVisibleCell);
+                    row.classList.toggle('row-muted', anyFilterActive && !rowHasVisibleCell);
                 });
             }
 
             function applyMobileDayLabels() {
-                const rows = Array.from(document.querySelectorAll('#rosterBody tr'));
+                const rows = Array.from(rosterBody.querySelectorAll('tr'));
                 rows.forEach((row) => {
                     const cells = Array.from(row.querySelectorAll('td'));
                     cells.forEach((cell, index) => {
@@ -309,59 +608,109 @@
                 });
             }
 
-            function setPressed(buttons, activeBtn) {
-                buttons.forEach((btn) => {
-                    const isActive = btn === activeBtn;
-                    btn.classList.toggle('active', isActive);
-                    btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            function bindShiftSelection() {
+                shiftButtons.forEach((btn) => {
+                    btn.addEventListener('click', () => {
+                        shiftButtons.forEach((b) => b.classList.remove('selected'));
+                        btn.classList.add('selected');
+                        const shiftDate = getDateForDayKey(btn.dataset.day);
+                        const detailDayText = prettyDay(btn.dataset.day) + (shiftDate ? ' | ' + formatDetailDate(shiftDate) : '');
+                        details.staff.textContent = btn.dataset.staff;
+                        details.department.textContent = btn.dataset.department;
+                        details.day.textContent = detailDayText;
+                        details.shift.textContent = titleCase(btn.dataset.shift);
+                        details.time.textContent = btn.dataset.time;
+                        details.notes.textContent = btn.dataset.notes;
+                    });
                 });
             }
 
-            shiftButtons.forEach((btn) => {
-                btn.addEventListener('click', () => {
-                    shiftButtons.forEach((b) => b.classList.remove('selected'));
-                    btn.classList.add('selected');
-                    details.staff.textContent = btn.dataset.staff;
-                    details.department.textContent = btn.dataset.department;
-                    details.day.textContent = prettyDay(btn.dataset.day);
-                    details.shift.textContent = btn.dataset.shift.charAt(0).toUpperCase() + btn.dataset.shift.slice(1);
-                    details.time.textContent = btn.dataset.time;
-                    details.notes.textContent = btn.dataset.notes;
-                });
-            });
+            [staffFilter, shiftFilter, deptFilter].forEach((el) => el.addEventListener('change', () => {
+                applyFilters();
+                updateCalendarTriggerLabel();
+                markActiveCalendarSelection();
+            }));
 
-            [staffFilter, shiftFilter, deptFilter, dayFocus].forEach((el) => el.addEventListener('change', applyFilters));
-
-            viewButtons.forEach((btn) => {
-                btn.addEventListener('click', () => {
-                    setPressed(viewButtons, btn);
-                    const isDay = btn.dataset.view === 'day';
-                    rosterTable.classList.toggle('day-focus-mode', isDay);
-                    if (isDay && dayFocus.value === 'all') {
-                        dayFocus.value = 'mon';
-                    }
-                    applyFilters();
-                });
-            });
-
-            densityButtons.forEach((btn) => {
-                btn.addEventListener('click', () => {
-                    setPressed(densityButtons, btn);
-                    rosterTable.classList.toggle('compact', btn.dataset.density === 'compact');
-                });
-            });
-
-            ['prevWeekBtn', 'todayBtn', 'nextWeekBtn'].forEach((id) => {
-                const button = document.getElementById(id);
-                if (button) {
-                    button.addEventListener('click', () => {
-                        button.blur();
-                    });
+            calendarTrigger.addEventListener('click', () => {
+                if (calendarPanel.hidden) {
+                    openCalendarPanel();
+                } else {
+                    closeCalendarPanel();
                 }
             });
 
-            applyMobileDayLabels();
-            applyFilters();
+            calendarPrevMonth.addEventListener('click', () => {
+                calendarMonthCursor = addMonths(calendarMonthCursor || getWeekStart(currentWeekIndex), -1);
+                renderCalendarMonth();
+            });
+
+            calendarNextMonth.addEventListener('click', () => {
+                calendarMonthCursor = addMonths(calendarMonthCursor || getWeekStart(currentWeekIndex), 1);
+                renderCalendarMonth();
+            });
+
+            calendarDaysGrid.addEventListener('mouseover', (event) => {
+                const dayBtn = event.target.closest('.calendar-day-cell');
+                if (!dayBtn || dayBtn.disabled) {
+                    return;
+                }
+
+                const weekIndex = Number(dayBtn.dataset.weekIndex);
+                setHoveredWeek(Number.isNaN(weekIndex) ? null : weekIndex);
+            });
+
+            calendarDaysGrid.addEventListener('focusin', (event) => {
+                const dayBtn = event.target.closest('.calendar-day-cell');
+                if (!dayBtn || dayBtn.disabled) {
+                    return;
+                }
+
+                const weekIndex = Number(dayBtn.dataset.weekIndex);
+                setHoveredWeek(Number.isNaN(weekIndex) ? null : weekIndex);
+            });
+
+            calendarDaysGrid.addEventListener('mouseleave', () => {
+                setHoveredWeek(currentWeekIndex);
+            });
+
+            calendarDaysGrid.addEventListener('click', (event) => {
+                const dayBtn = event.target.closest('.calendar-day-cell');
+                if (!dayBtn || dayBtn.disabled || !dayBtn.dataset.iso) {
+                    return;
+                }
+
+                const pickedDate = parseIsoDate(dayBtn.dataset.iso);
+                const weekIndex = findWeekIndexByDate(pickedDate);
+                if (weekIndex === -1) {
+                    return;
+                }
+
+                currentWeekIndex = weekIndex;
+                refreshWeekView();
+                closeCalendarPanel();
+            });
+
+            document.addEventListener('click', (event) => {
+                if (calendarPanel.hidden) {
+                    return;
+                }
+
+                if (!calendarPickerWrap.contains(event.target)) {
+                    closeCalendarPanel();
+                }
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && !calendarPanel.hidden) {
+                    closeCalendarPanel();
+                    calendarTrigger.focus();
+                }
+            });
+
+            renderFilterOptions();
+            currentWeekIndex = findClosestWeekIndex();
+            calendarMonthCursor = startOfMonth(getWeekStart(currentWeekIndex));
+            refreshWeekView();
         })();
     </script>
 </body>
