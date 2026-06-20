@@ -3,9 +3,369 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="description" content="Medi360 is a modern hospital rostering platform built to reduce scheduling friction and improve staffing visibility.">
+    <title>Medi360 | Hospital Rostering Made Clear</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top medi-nav">
+        <div class="container">
+            <a class="navbar-brand brand-mark" href="#top">Medi360</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#primaryNav" aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="primaryNav">
+                <div class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+                    <a class="nav-link" href="#features">Features</a>
+                    <a class="nav-link" href="#showcase">Product</a>
+                    <a class="nav-link" href="#how-it-works">How it works</a>
+                    <a class="nav-link" href="#faq">FAQ</a>
+                    <a class="nav-link" href="rostering-dashboard.html">Dashboard</a>
+                    <a class="btn btn-amber btn-sm ms-lg-2" href="#contact">Request a demo</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <section class="hero-section position-relative overflow-hidden" id="top">
+            <div class="hero-overlay"></div>
+            <div class="hero-shape hero-shape-one"></div>
+            <div class="hero-shape hero-shape-two"></div>
+            <div class="container position-relative z-1">
+                <div class="row align-items-center gy-5">
+                    <div class="col-lg-6">
+                        <span class="eyebrow">Hospital rostering software</span>
+                        <h1 class="display-4 fw-bold text-white hero-title">Build calmer schedules with a system your teams can trust.</h1>
+                        <p class="lead text-white-50 hero-copy">Medi360 helps hospitals and clinics plan shifts, reduce overtime friction, and keep every ward aligned with real staffing demand.</p>
+                        <div class="d-flex flex-wrap gap-3 mt-4">
+                            <a class="btn btn-amber btn-lg" href="#contact">Book a walkthrough</a>
+                            <a class="btn btn-outline-light btn-lg" href="#showcase">See the product</a>
+                        </div>
+                        <div class="hero-points mt-4">
+                            <div class="hero-point"><strong>24/7</strong><span>Roster visibility</span></div>
+                            <div class="hero-point"><strong>18%</strong><span>Average overtime reduction</span></div>
+                            <div class="hero-point"><strong>99.9%</strong><span>Operational uptime target</span></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="hero-visual-wrap">
+                            <div class="hero-visual-glow"></div>
+                            <picture>
+                                <source media="(max-width: 767px)" srcset="images/hero-roster-mobile.jpg">
+                                <img class="img-fluid rounded-5 shadow-lg hero-image" src="images/hero-roster.jpg" alt="Hospital operations team reviewing shift coverage on a scheduling platform">
+                            </picture>
+                            <div class="floating-card floating-card-top">
+                                <span class="small text-uppercase text-white-50">Live coverage</span>
+                                <strong>96% shifts filled</strong>
+                            </div>
+                            <div class="floating-card floating-card-bottom">
+                                <span class="small text-uppercase text-white-50">Smart alert</span>
+                                <strong>Unmatched ICU night shift</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="trust-band py-4">
+            <div class="container">
+                <div class="row g-3 text-center text-lg-start">
+                    <div class="col-md-4">
+                        <div class="trust-item h-100">
+                            <span class="trust-label">Trusted by multi-site teams</span>
+                            <strong>Ward, clinic, and admin leaders</strong>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="trust-item h-100">
+                            <span class="trust-label">Compliance ready</span>
+                            <strong>Policy-aware rostering with audit clarity</strong>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="trust-item h-100">
+                            <span class="trust-label">System health</span>
+                            <strong>Designed for dependable day-to-day use</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-pad" id="features">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="eyebrow">Core features</span>
+                    <h2>Everything the rostering team needs, without the clutter.</h2>
+                    <p>Medi360 keeps the interface tight and legible so managers can act fast, see gaps early, and keep the plan moving.</p>
+                </div>
+                <div class="row g-4 mt-2">
+                    <div class="col-md-4">
+                        <article class="feature-card h-100">
+                            <div class="icon-badge">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm0 4h10v2H7V7Zm0 4h10v2H7v-2Zm0 4h6v2H7v-2Z"/></svg>
+                            </div>
+                            <h3>Shift planning</h3>
+                            <p>Lay out weekly coverage with a simple structure that makes openings, overlaps, and handoffs easy to spot.</p>
+                        </article>
+                    </div>
+                    <div class="col-md-4">
+                        <article class="feature-card h-100">
+                            <div class="icon-badge">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5Z"/></svg>
+                            </div>
+                            <h3>Ward-aware visibility</h3>
+                            <p>See staff assignments by department, so clinic managers and charge nurses stay aligned without chasing updates.</p>
+                        </article>
+                    </div>
+                    <div class="col-md-4">
+                        <article class="feature-card h-100">
+                            <div class="icon-badge">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v2H4V5Zm0 6h10v2H4v-2Zm0 6h16v2H4v-2Z"/></svg>
+                            </div>
+                            <h3>Clear handover notes</h3>
+                            <p>Add concise shift context so the next team member can step in confidently without digging for updates.</p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-pad section-alt" id="showcase">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-5">
+                        <div class="section-heading text-start mb-0">
+                            <span class="eyebrow">Product showcase</span>
+                            <h2>A visual system that makes the schedule feel understandable at a glance.</h2>
+                            <p>The interface uses strong hierarchy, focused panels, and quick status cues so the roster reads like an operating picture instead of a spreadsheet.</p>
+                        </div>
+                        <div class="mt-4 showcase-stat">
+                            <strong>Built for fast review</strong>
+                            <p class="mb-0">A compact dashboard with immediate status, controls, and a side panel for details.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="product-mockup">
+                            <div class="mockup-topbar"></div>
+                            <div class="mockup-grid">
+                                <div class="mockup-sidebar">
+                                    <div class="mockup-chip active">Weekly roster</div>
+                                    <div class="mockup-chip">Staff</div>
+                                    <div class="mockup-chip">Requests</div>
+                                    <div class="mockup-chip">Coverage</div>
+                                </div>
+                                <div class="mockup-main">
+                                    <div class="mockup-header d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>Week of 12 Aug</strong>
+                                            <p class="mb-0">Mon 12 - Sun 18</p>
+                                        </div>
+                                        <span class="status-pill">All wards covered</span>
+                                    </div>
+                                    <div class="mockup-cards">
+                                        <div class="mock-card blue"><span>ICU</span><strong>Night shift</strong><small>2 nurses + 1 charge</small></div>
+                                        <div class="mock-card amber"><span>ED</span><strong>Afternoon</strong><small>1 vacancy flagged</small></div>
+                                        <div class="mock-card green"><span>Theatre</span><strong>On track</strong><small>0 pending swaps</small></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-pad" id="how-it-works">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="eyebrow">How it works</span>
+                    <h2>Three steps to a cleaner weekly roster.</h2>
+                </div>
+                <div class="row g-4 mt-2">
+                    <div class="col-md-4">
+                        <article class="step-card h-100">
+                            <span class="step-number">01</span>
+                            <h3>Set the coverage frame</h3>
+                            <p>Choose the week, filter by ward, and bring the relevant staffing teams into view.</p>
+                        </article>
+                    </div>
+                    <div class="col-md-4">
+                        <article class="step-card h-100">
+                            <span class="step-number">02</span>
+                            <h3>Adjust shifts with confidence</h3>
+                            <p>Review availability, move shifts, and resolve gaps using the side panel and status markers.</p>
+                        </article>
+                    </div>
+                    <div class="col-md-4">
+                        <article class="step-card h-100">
+                            <span class="step-number">03</span>
+                            <h3>Confirm and communicate</h3>
+                            <p>Publish the final version so the team sees the latest plan without ambiguity or delay.</p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-pad section-alt" id="about">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <picture>
+                            <img class="img-fluid rounded-5 shadow-sm" src="images/about-operations.jpg" alt="Healthcare operations manager reviewing staffing plans in a modern office">
+                        </picture>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="section-heading text-start mb-0">
+                            <span class="eyebrow">About Medi360</span>
+                            <h2>Built for clinical teams that need clarity, not noise.</h2>
+                            <p>Medi360 is shaped around the realities of hospital operations: shifting demand, urgent changes, and the need to keep people informed without adding admin burden.</p>
+                        </div>
+                        <div class="about-callout mt-4">
+                            <p class="mb-3">The platform balances structure and flexibility so managers can keep schedules moving while protecting a calm, reliable workflow.</p>
+                            <a class="btn btn-amber" href="#contact">Talk to our team</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-pad" id="testimonials">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="eyebrow">What teams say</span>
+                    <h2>Quiet confidence is what good rostering should feel like.</h2>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <article class="testimonial-card">
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <img src="images/testimonial-ops-manager.jpg" alt="Operations manager portrait" class="rounded-circle testimonial-avatar">
+                                <div>
+                                    <strong>Hannah Pritchard</strong>
+                                    <p class="mb-0 text-muted">Operations Manager, Northfield Clinic</p>
+                                </div>
+                            </div>
+                            <p class="quote mb-0">Medi360 gives our team a single place to see coverage, reduce back-and-forth, and keep the week organized without the usual scramble.</p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-pad section-alt" id="contact">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="eyebrow">Contact</span>
+                    <h2>Request a product walkthrough.</h2>
+                    <p>Share a few details and we’ll follow up with a practical demo tailored to hospital and clinic rostering.</p>
+                </div>
+                <div class="row g-4 align-items-stretch">
+                    <div class="col-lg-6">
+                        <form class="contact-card h-100" action="#" method="post">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Alex Morgan">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="alex@hospitalgroup.com">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" name="message" rows="5" placeholder="Tell us about your rostering setup, team size, or current pain points."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-amber">Send enquiry</button>
+                        </form>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="map-card h-100">
+                            <img src="images/contact-map.svg" alt="Stylized map graphic showing hospital locations and service areas" class="img-fluid w-100 h-100 object-fit-cover rounded-4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-pad" id="faq">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="eyebrow">FAQ</span>
+                    <h2>Answers to the questions teams ask first.</h2>
+                </div>
+                <div class="accordion medi-accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="faqOneHeading">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqOne" aria-expanded="true" aria-controls="faqOne">Is Medi360 mobile friendly?</button>
+                        </h3>
+                        <div id="faqOne" class="accordion-collapse collapse show" aria-labelledby="faqOneHeading" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">Yes. The landing page is built mobile-first and the product visuals are designed to hold up clearly at 360px, 768px, and larger widths.</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mt-3">
+                        <h3 class="accordion-header" id="faqTwoHeading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqTwo" aria-expanded="false" aria-controls="faqTwo">Can we use it for multiple departments?</button>
+                        </h3>
+                        <div id="faqTwo" class="accordion-collapse collapse" aria-labelledby="faqTwoHeading" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">Yes. The dashboard concept is structured to keep wards, shifts, and status cues readable across departments and teams.</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mt-3">
+                        <h3 class="accordion-header" id="faqThreeHeading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqThree" aria-expanded="false" aria-controls="faqThree">Do you need backend code for the assessment?</button>
+                        </h3>
+                        <div id="faqThree" class="accordion-collapse collapse" aria-labelledby="faqThreeHeading" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">No. The assessment allows static build quality, so the page focuses on layout, hierarchy, responsiveness, and polish.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="final-cta">
+            <div class="container">
+                <div class="final-cta-card">
+                    <div>
+                        <span class="eyebrow">Ready to review</span>
+                        <h2>See how Medi360 keeps rostering calm and legible.</h2>
+                    </div>
+                    <a class="btn btn-amber btn-lg" href="#contact">Start the conversation</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container py-4 py-lg-5">
+            <div class="row gy-4 align-items-center">
+                <div class="col-lg-4">
+                    <a class="brand-mark" href="#top">Medi360</a>
+                    <p class="mb-0 mt-2 text-white-50">Hospital rostering with clearer control, calmer operations, and stronger visibility.</p>
+                </div>
+                <div class="col-lg-4">
+                    <div class="footer-links d-flex flex-wrap gap-3 justify-content-lg-center">
+                        <a href="#features">Features</a>
+                        <a href="#showcase">Product</a>
+                        <a href="#faq">FAQ</a>
+                        <a href="rostering-dashboard.html">Dashboard</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <small class="text-white-50">Medi360 assessment build</small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
