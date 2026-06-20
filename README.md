@@ -86,19 +86,16 @@ Tested at 360px, 768px, and 1280px. Mobile menu is functional on all modern brow
 
 ### Tools used
 
-**GitHub Copilot (Claude Sonnet 4.6)** — primary coding assistant throughout the build, used inside VS Code via the chat agent panel.
+**GitHub Copilot (Claude Sonnet 4.6)** — primary coding assistant used inside VS Code.
 **VS Code** — editor and debugging environment.
-**Photoshop / Illustrator / Inkscape** — used for image and brand asset preparation where needed.
-**Gemini / Bing Images** — used for occasional visual reference and comparison during early concept exploration.
+**Photoshop / Illustrator / Inkscape** — used for brand and image asset work.
+**Gemini / Bing Images** — used for visual reference during early concept exploration.
 
 ### How I integrated AI into the workflow
 
-I worked in a tight prompt → review → edit cycle rather than accepting blocks whole. The typical loop looked like:
+I used AI in a prompt → review → edit loop instead of accepting large blocks unchanged. First I used Copilot to scaffold structure and layout, then I rewrote the copy and markup so the landing page and dashboard matched the assessment brief and the hospital context. I also used it to explore a few landing-page directions, but I kept the strongest ideas and edited them heavily by hand.
 
-1. **Prompt for structure** — describe a section's purpose, layout intent, and content hierarchy. Review the output, then adjust copy and markup to match the real product voice.
-2. **Prompt for variants** — for the landing page I asked for two to three visual directions. Copilot generated the Command Center concept (concept B) and the warm editorial concept (concept C). I kept both as reference but submitted the primary index.html after editing it most heavily by hand.
-3. **Prompt for interaction logic** — the calendar week-picker, filter row, and shift detail panel were scaffolded by AI and then reworked: the Sunday-first week model required manual data restructuring, and the `buildWeekRoster` template system was rewritten from scratch to produce realistic 10-week scheduling patterns.
-4. **Prompt for accessibility** — I asked Copilot to audit the dashboard against WCAG AA. It identified missing `aria-pressed` on shift chips, missing live regions on filter output and week-range labels, and low-contrast muted states. I reviewed each suggestion and applied them with targeted patches rather than a wholesale rewrite.
+For the dashboard, Copilot helped draft the roster logic, filter UI, and accessibility pass, but I manually reworked the Sunday-first week model, the weekly data templates, and the shift-detail behavior so the interface felt realistic. That approach saved time without turning the result into a generic AI layout.
 
 ### What AI got right
 
@@ -109,14 +106,13 @@ I worked in a tight prompt → review → edit cycle rather than accepting block
 
 ### What I had to fix or rewrite
 
-- **Calendar and week model.** AI initially produced a Monday-first ISO week model. The product required Sunday-first weeks to match clinical handover practice. I rewrote the day-order array, the `buildWeekRoster` function, and the column header renderer manually.
-- **Dashboard data realism.** Early AI output produced flat, repetitive shift patterns. I rewrote the staff template system to support two alternating weekly templates per person and per-shift note variations.
-- **Copy and brand voice.** AI defaults to safe, generic SaaS language. Every heading and subheading was rewritten to be more specific to the clinical operations context — language like "coverage visibility" and "handover-ready context" rather than "increase efficiency".
-- **Hero shape positioning.** Visual decoration like the animated background circles required several manual iterations to feel balanced rather than default.
+- **Calendar and week model.** AI initially leaned toward a Monday-first schedule, so I rewrote the week ordering and column headers to keep the dashboard Sunday-first.
+- **Dashboard data realism.** Early output was too repetitive, so I rebuilt the staff templates with alternating weekly patterns and more varied shift notes.
+- **Copy and brand voice.** I rewrote generic SaaS phrasing so the wording felt specific to clinical operations rather than AI-generated.
 
 ### The single biggest decision I made myself
 
-Before writing code, I gave Copilot the architecture constraints up front: the languages, libraries, versions, accessibility expectations, brand direction, theme, typography, palette, and the fact that the work needed to stay static and self-contained. That made the output much more focused and reduced the amount of cleanup needed later.
+Before writing code, I gave Copilot the architecture constraints up front: the languages, libraries, versions, accessibility expectations, brand direction, theme, typography, palette, and the fact that the work needed to stay static and self-contained. That made the output much more focused and reduced cleanup later.
 
 ### What I'd do with another day
 
