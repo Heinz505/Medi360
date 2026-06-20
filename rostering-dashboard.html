@@ -3,9 +3,354 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="view-transition" content="same-origin">
+    <meta name="description" content="Medi360 weekly rostering dashboard with staffing visibility, shift controls, and schedule detail tools.">
+    <title>Medi360 | Rostering Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-    
+<body class="dashboard-page page-enter">
+    <a class="skip-link" href="#dashboard-main">Skip to dashboard content</a>
+
+    <div class="dashboard-shell">
+        <aside class="dashboard-sidebar d-none d-lg-flex" aria-label="Sidebar navigation">
+            <a class="brand-mark" href="index.html">Medi360</a>
+            <p class="sidebar-caption">Rostering command</p>
+            <nav class="sidebar-nav" aria-label="Dashboard sections">
+                <a href="#" class="sidebar-link active" aria-current="page">Overview</a>
+                <a href="#weekly-roster" class="sidebar-link">Schedules</a>
+                <a href="#" class="sidebar-link">Staff</a>
+                <a href="#" class="sidebar-link">Settings</a>
+            </nav>
+            <div class="sidebar-note mt-auto">
+                <small>Live staffing health</small>
+                <strong>98.2% role coverage</strong>
+            </div>
+        </aside>
+
+        <main id="dashboard-main" class="dashboard-main">
+            <header class="dashboard-topbar">
+                <div class="d-flex align-items-center gap-2 d-lg-none mb-3">
+                    <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar" aria-controls="mobileSidebar">Menu</button>
+                    <a href="index.html" class="btn btn-outline-secondary btn-sm">Back to landing</a>
+                </div>
+
+                <div class="topbar-grid">
+                    <div>
+                        <span class="eyebrow">Weekly roster</span>
+                        <h1>Operations Dashboard</h1>
+                        <p>Monday 12 Aug to Sunday 18 Aug</p>
+                    </div>
+
+                    <div class="toolbar-cluster">
+                        <div class="btn-group" role="group" aria-label="Date navigation">
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id="prevWeekBtn">Prev</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id="todayBtn">Today</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id="nextWeekBtn">Next</button>
+                        </div>
+
+                        <div class="btn-group" role="group" aria-label="Roster view mode">
+                            <button type="button" class="btn btn-outline-secondary btn-sm active" data-view="week" aria-pressed="true">Week view</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" data-view="day" aria-pressed="false">Day focus</button>
+                        </div>
+
+                        <div class="btn-group" role="group" aria-label="Density toggle">
+                            <button type="button" class="btn btn-outline-secondary btn-sm active" data-density="comfortable" aria-pressed="true">Comfortable</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" data-density="compact" aria-pressed="false">Compact</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filters-row">
+                    <label class="visually-hidden" for="staffFilter">Filter by staff member</label>
+                    <select id="staffFilter" class="form-select form-select-sm">
+                        <option value="all">All staff</option>
+                        <option value="Aisha Patel">Aisha Patel</option>
+                        <option value="Liam Carter">Liam Carter</option>
+                        <option value="Mina Lopez">Mina Lopez</option>
+                        <option value="Jonah Price">Jonah Price</option>
+                        <option value="Nora Hayes">Nora Hayes</option>
+                    </select>
+
+                    <label class="visually-hidden" for="shiftFilter">Filter by shift type</label>
+                    <select id="shiftFilter" class="form-select form-select-sm">
+                        <option value="all">All shifts</option>
+                        <option value="morning">Morning</option>
+                        <option value="afternoon">Afternoon</option>
+                        <option value="night">Night</option>
+                    </select>
+
+                    <label class="visually-hidden" for="departmentFilter">Filter by department</label>
+                    <select id="departmentFilter" class="form-select form-select-sm">
+                        <option value="all">All departments</option>
+                        <option value="ICU">ICU</option>
+                        <option value="Emergency">Emergency</option>
+                        <option value="Pediatrics">Pediatrics</option>
+                        <option value="Surgery">Surgery</option>
+                    </select>
+
+                    <label class="visually-hidden" for="dayFocus">Day focus</label>
+                    <select id="dayFocus" class="form-select form-select-sm">
+                        <option value="all">All days</option>
+                        <option value="mon">Monday</option>
+                        <option value="tue">Tuesday</option>
+                        <option value="wed">Wednesday</option>
+                        <option value="thu">Thursday</option>
+                        <option value="fri">Friday</option>
+                        <option value="sat">Saturday</option>
+                        <option value="sun">Sunday</option>
+                    </select>
+                </div>
+            </header>
+
+            <section class="kpi-row" aria-label="Roster performance summary">
+                <article class="kpi-card">
+                    <span>Filled shifts</span>
+                    <strong>124</strong>
+                    <small>+6 from last week</small>
+                </article>
+                <article class="kpi-card">
+                    <span>Open shifts</span>
+                    <strong>08</strong>
+                    <small>2 urgent roles</small>
+                </article>
+                <article class="kpi-card">
+                    <span>Swap requests</span>
+                    <strong>14</strong>
+                    <small>9 pending approval</small>
+                </article>
+                <article class="kpi-card">
+                    <span>Overtime risk</span>
+                    <strong>Moderate</strong>
+                    <small>Review ICU and ED blocks</small>
+                </article>
+            </section>
+
+            <section class="chart-row" aria-label="Rostering analytics cards">
+                <article class="chart-card">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h2>Coverage by Department</h2>
+                        <span class="status-pill">This week</span>
+                    </div>
+                    <div class="mini-bars">
+                        <div class="bar-item"><span>ICU</span><div><i style="width: 92%"></i></div><strong>92%</strong></div>
+                        <div class="bar-item"><span>Emergency</span><div><i style="width: 88%"></i></div><strong>88%</strong></div>
+                        <div class="bar-item"><span>Pediatrics</span><div><i style="width: 96%"></i></div><strong>96%</strong></div>
+                        <div class="bar-item"><span>Surgery</span><div><i style="width: 90%"></i></div><strong>90%</strong></div>
+                    </div>
+                </article>
+
+                <article class="chart-card">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h2>Shift Mix</h2>
+                        <span class="status-pill">Weekly split</span>
+                    </div>
+                    <div class="shift-mix-wrap">
+                        <div class="donut" role="img" aria-label="Shift mix chart showing morning 44 percent, afternoon 33 percent, and night 23 percent"></div>
+                        <ul class="mix-legend">
+                            <li><span class="swatch morning"></span>Morning 44%</li>
+                            <li><span class="swatch afternoon"></span>Afternoon 33%</li>
+                            <li><span class="swatch night"></span>Night 23%</li>
+                        </ul>
+                    </div>
+                </article>
+            </section>
+
+            <section class="roster-layout" id="weekly-roster">
+                <article class="roster-card">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2>Weekly Roster Grid</h2>
+                        <span class="text-secondary small">Tap any shift for details</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-middle roster-table" id="rosterTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Staff</th>
+                                    <th scope="col">Mon</th>
+                                    <th scope="col">Tue</th>
+                                    <th scope="col">Wed</th>
+                                    <th scope="col">Thu</th>
+                                    <th scope="col">Fri</th>
+                                    <th scope="col">Sat</th>
+                                    <th scope="col">Sun</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rosterBody">
+                                <tr>
+                                    <th scope="row">Aisha Patel <small>ICU</small></th>
+                                    <td><button class="shift-chip morning" data-staff="Aisha Patel" data-department="ICU" data-day="mon" data-shift="morning" data-time="07:00 - 15:00" data-notes="Ventilator handover required at 07:10.">Morning</button></td>
+                                    <td><button class="shift-chip morning" data-staff="Aisha Patel" data-department="ICU" data-day="tue" data-shift="morning" data-time="07:00 - 15:00" data-notes="Pair with Liam for discharge prep.">Morning</button></td>
+                                    <td><button class="shift-chip afternoon" data-staff="Aisha Patel" data-department="ICU" data-day="wed" data-shift="afternoon" data-time="15:00 - 23:00" data-notes="Cover step-down beds 8 to 12.">Afternoon</button></td>
+                                    <td><button class="shift-chip off" data-staff="Aisha Patel" data-department="ICU" data-day="thu" data-shift="off" data-time="Off duty" data-notes="Planned recovery day.">Off</button></td>
+                                    <td><button class="shift-chip night" data-staff="Aisha Patel" data-department="ICU" data-day="fri" data-shift="night" data-time="23:00 - 07:00" data-notes="One vacancy adjacent to this shift.">Night</button></td>
+                                    <td><button class="shift-chip off" data-staff="Aisha Patel" data-department="ICU" data-day="sat" data-shift="off" data-time="Off duty" data-notes="Unavailable on weekends.">Off</button></td>
+                                    <td><button class="shift-chip off" data-staff="Aisha Patel" data-department="ICU" data-day="sun" data-shift="off" data-time="Off duty" data-notes="Unavailable on weekends.">Off</button></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Liam Carter <small>Emergency</small></th>
+                                    <td><button class="shift-chip afternoon" data-staff="Liam Carter" data-department="Emergency" data-day="mon" data-shift="afternoon" data-time="14:00 - 22:00" data-notes="Triage surge expected after 18:00.">Afternoon</button></td>
+                                    <td><button class="shift-chip night" data-staff="Liam Carter" data-department="Emergency" data-day="tue" data-shift="night" data-time="22:00 - 06:00" data-notes="High-acuity night assignment.">Night</button></td>
+                                    <td><button class="shift-chip off" data-staff="Liam Carter" data-department="Emergency" data-day="wed" data-shift="off" data-time="Off duty" data-notes="Rest day after overnight.">Off</button></td>
+                                    <td><button class="shift-chip morning" data-staff="Liam Carter" data-department="Emergency" data-day="thu" data-shift="morning" data-time="06:00 - 14:00" data-notes="Lead first-shift triage board.">Morning</button></td>
+                                    <td><button class="shift-chip afternoon" data-staff="Liam Carter" data-department="Emergency" data-day="fri" data-shift="afternoon" data-time="14:00 - 22:00" data-notes="Monitor handoff at 21:45.">Afternoon</button></td>
+                                    <td><button class="shift-chip night" data-staff="Liam Carter" data-department="Emergency" data-day="sat" data-shift="night" data-time="22:00 - 06:00" data-notes="Secondary trauma coverage.">Night</button></td>
+                                    <td><button class="shift-chip off" data-staff="Liam Carter" data-department="Emergency" data-day="sun" data-shift="off" data-time="Off duty" data-notes="Weekend rest period.">Off</button></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Mina Lopez <small>Pediatrics</small></th>
+                                    <td><button class="shift-chip morning" data-staff="Mina Lopez" data-department="Pediatrics" data-day="mon" data-shift="morning" data-time="08:00 - 16:00" data-notes="Ward rounds at 08:30.">Morning</button></td>
+                                    <td><button class="shift-chip morning" data-staff="Mina Lopez" data-department="Pediatrics" data-day="tue" data-shift="morning" data-time="08:00 - 16:00" data-notes="Vaccination clinic support.">Morning</button></td>
+                                    <td><button class="shift-chip morning" data-staff="Mina Lopez" data-department="Pediatrics" data-day="wed" data-shift="morning" data-time="08:00 - 16:00" data-notes="Parent consultation block.">Morning</button></td>
+                                    <td><button class="shift-chip afternoon" data-staff="Mina Lopez" data-department="Pediatrics" data-day="thu" data-shift="afternoon" data-time="12:00 - 20:00" data-notes="Evening handoff with Jonah.">Afternoon</button></td>
+                                    <td><button class="shift-chip off" data-staff="Mina Lopez" data-department="Pediatrics" data-day="fri" data-shift="off" data-time="Off duty" data-notes="Scheduled leave.">Off</button></td>
+                                    <td><button class="shift-chip morning" data-staff="Mina Lopez" data-department="Pediatrics" data-day="sat" data-shift="morning" data-time="08:00 - 16:00" data-notes="Weekend clinic coverage.">Morning</button></td>
+                                    <td><button class="shift-chip off" data-staff="Mina Lopez" data-department="Pediatrics" data-day="sun" data-shift="off" data-time="Off duty" data-notes="Weekend rest period.">Off</button></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Jonah Price <small>Surgery</small></th>
+                                    <td><button class="shift-chip night" data-staff="Jonah Price" data-department="Surgery" data-day="mon" data-shift="night" data-time="21:00 - 05:00" data-notes="Post-op ward watchlist active.">Night</button></td>
+                                    <td><button class="shift-chip off" data-staff="Jonah Price" data-department="Surgery" data-day="tue" data-shift="off" data-time="Off duty" data-notes="Recovery period.">Off</button></td>
+                                    <td><button class="shift-chip afternoon" data-staff="Jonah Price" data-department="Surgery" data-day="wed" data-shift="afternoon" data-time="13:00 - 21:00" data-notes="Operating room turnover lead.">Afternoon</button></td>
+                                    <td><button class="shift-chip afternoon" data-staff="Jonah Price" data-department="Surgery" data-day="thu" data-shift="afternoon" data-time="13:00 - 21:00" data-notes="Support orthopedics list.">Afternoon</button></td>
+                                    <td><button class="shift-chip night" data-staff="Jonah Price" data-department="Surgery" data-day="fri" data-shift="night" data-time="21:00 - 05:00" data-notes="On-call response linked.">Night</button></td>
+                                    <td><button class="shift-chip night" data-staff="Jonah Price" data-department="Surgery" data-day="sat" data-shift="night" data-time="21:00 - 05:00" data-notes="Weekend emergency theater standby.">Night</button></td>
+                                    <td><button class="shift-chip off" data-staff="Jonah Price" data-department="Surgery" data-day="sun" data-shift="off" data-time="Off duty" data-notes="Off after overnight blocks.">Off</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+
+                <aside class="details-card" aria-live="polite">
+                    <h2>Shift Details</h2>
+                    <p class="details-hint">Select a shift chip to inspect assignment context.</p>
+                    <dl class="details-list">
+                        <div><dt>Staff</dt><dd id="detailStaff">Aisha Patel</dd></div>
+                        <div><dt>Department</dt><dd id="detailDepartment">ICU</dd></div>
+                        <div><dt>Day</dt><dd id="detailDay">Monday</dd></div>
+                        <div><dt>Shift</dt><dd id="detailShift">Morning</dd></div>
+                        <div><dt>Time</dt><dd id="detailTime">07:00 - 15:00</dd></div>
+                        <div><dt>Notes</dt><dd id="detailNotes">Ventilator handover required at 07:10.</dd></div>
+                    </dl>
+                </aside>
+            </section>
+        </main>
+    </div>
+
+    <div class="offcanvas offcanvas-start dashboard-offcanvas" tabindex="-1" id="mobileSidebar" aria-labelledby="mobileSidebarLabel">
+        <div class="offcanvas-header">
+            <h2 class="offcanvas-title h5" id="mobileSidebarLabel">Medi360</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <nav class="sidebar-nav" aria-label="Mobile dashboard sections">
+                <a href="#" class="sidebar-link active" aria-current="page">Overview</a>
+                <a href="#weekly-roster" class="sidebar-link" data-bs-dismiss="offcanvas">Schedules</a>
+                <a href="#" class="sidebar-link">Staff</a>
+                <a href="#" class="sidebar-link">Settings</a>
+                <a href="index.html" class="sidebar-link">Back to landing</a>
+            </nav>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        (function () {
+            const shiftButtons = Array.from(document.querySelectorAll('.shift-chip'));
+            const staffFilter = document.getElementById('staffFilter');
+            const shiftFilter = document.getElementById('shiftFilter');
+            const deptFilter = document.getElementById('departmentFilter');
+            const dayFocus = document.getElementById('dayFocus');
+            const viewButtons = Array.from(document.querySelectorAll('[data-view]'));
+            const densityButtons = Array.from(document.querySelectorAll('[data-density]'));
+            const rosterTable = document.getElementById('rosterTable');
+            const details = {
+                staff: document.getElementById('detailStaff'),
+                department: document.getElementById('detailDepartment'),
+                day: document.getElementById('detailDay'),
+                shift: document.getElementById('detailShift'),
+                time: document.getElementById('detailTime'),
+                notes: document.getElementById('detailNotes')
+            };
+
+            function prettyDay(value) {
+                const names = { mon: 'Monday', tue: 'Tuesday', wed: 'Wednesday', thu: 'Thursday', fri: 'Friday', sat: 'Saturday', sun: 'Sunday' };
+                return names[value] || value;
+            }
+
+            function applyFilters() {
+                const staff = staffFilter.value;
+                const shift = shiftFilter.value;
+                const dept = deptFilter.value;
+                const day = dayFocus.value;
+
+                shiftButtons.forEach((btn) => {
+                    const okStaff = staff === 'all' || btn.dataset.staff === staff;
+                    const okShift = shift === 'all' || btn.dataset.shift === shift;
+                    const okDept = dept === 'all' || btn.dataset.department === dept;
+                    const okDay = day === 'all' || btn.dataset.day === day;
+                    const visible = okStaff && okShift && okDept && okDay;
+                    btn.closest('td').classList.toggle('cell-muted', !visible);
+                });
+            }
+
+            function setPressed(buttons, activeBtn) {
+                buttons.forEach((btn) => {
+                    const isActive = btn === activeBtn;
+                    btn.classList.toggle('active', isActive);
+                    btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+                });
+            }
+
+            shiftButtons.forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    shiftButtons.forEach((b) => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    details.staff.textContent = btn.dataset.staff;
+                    details.department.textContent = btn.dataset.department;
+                    details.day.textContent = prettyDay(btn.dataset.day);
+                    details.shift.textContent = btn.dataset.shift.charAt(0).toUpperCase() + btn.dataset.shift.slice(1);
+                    details.time.textContent = btn.dataset.time;
+                    details.notes.textContent = btn.dataset.notes;
+                });
+            });
+
+            [staffFilter, shiftFilter, deptFilter, dayFocus].forEach((el) => el.addEventListener('change', applyFilters));
+
+            viewButtons.forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    setPressed(viewButtons, btn);
+                    const isDay = btn.dataset.view === 'day';
+                    rosterTable.classList.toggle('day-focus-mode', isDay);
+                    if (isDay && dayFocus.value === 'all') {
+                        dayFocus.value = 'mon';
+                    }
+                    applyFilters();
+                });
+            });
+
+            densityButtons.forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    setPressed(densityButtons, btn);
+                    rosterTable.classList.toggle('compact', btn.dataset.density === 'compact');
+                });
+            });
+
+            ['prevWeekBtn', 'todayBtn', 'nextWeekBtn'].forEach((id) => {
+                const button = document.getElementById(id);
+                if (button) {
+                    button.addEventListener('click', () => {
+                        button.blur();
+                    });
+                }
+            });
+
+            applyFilters();
+        })();
+    </script>
 </body>
 </html>
