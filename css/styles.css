@@ -757,6 +757,15 @@ textarea:focus-visible {
     padding: 1.1rem clamp(1rem, 2.2vw, 1.7rem) 1.8rem;
 }
 
+.dashboard-page .btn:focus-visible,
+.dashboard-page .form-select:focus-visible,
+.dashboard-page .sidebar-link:focus-visible,
+.dashboard-page .calendar-day-cell:focus-visible,
+.dashboard-page .shift-chip:focus-visible {
+    outline: 3px solid #0f3b64;
+    outline-offset: 2px;
+}
+
 .dashboard-topbar {
     border: 1px solid var(--medi-border);
     border-radius: 1.15rem;
@@ -773,7 +782,7 @@ textarea:focus-visible {
 
 .dashboard-topbar p {
     margin: 0;
-    color: var(--medi-slate);
+    color: #3d556d;
 }
 
 .topbar-grid {
@@ -833,7 +842,7 @@ textarea:focus-visible {
 .calendar-week-action span {
     display: block;
     font-size: 0.74rem;
-    color: #5e758e;
+    color: #425a72;
 }
 
 .calendar-month-nav {
@@ -912,7 +921,7 @@ textarea:focus-visible {
 }
 
 .calendar-day-cell.no-data {
-    opacity: 0.38;
+    opacity: 0.62;
     cursor: not-allowed;
 }
 
@@ -977,7 +986,7 @@ textarea:focus-visible {
 }
 
 .kpi-card small {
-    color: #4d657d;
+    color: #3c546b;
 }
 
 .chart-row {
@@ -1144,7 +1153,7 @@ textarea:focus-visible {
 }
 
 .roster-table tbody tr.row-muted {
-    opacity: 0.58;
+    opacity: 0.78;
 }
 
 .shift-chip {
@@ -1183,7 +1192,7 @@ textarea:focus-visible {
 }
 
 .cell-muted {
-    opacity: 0.32;
+    opacity: 0.62;
 }
 
 .roster-table.compact .shift-chip {

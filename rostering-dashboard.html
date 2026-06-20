@@ -42,7 +42,7 @@
                     <div>
                         <span class="eyebrow">Weekly roster</span>
                         <h1>Operations Dashboard</h1>
-                        <p id="currentRangeLabel">Monday 12 Aug to Sunday 18 Aug</p>
+                        <p id="currentRangeLabel" aria-live="polite">Monday 12 Aug to Sunday 18 Aug</p>
                     </div>
                 </div>
 
@@ -69,10 +69,10 @@
                         <button type="button" id="calendarTrigger" class="form-select form-select-sm calendar-trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="calendarPanel">
                             <span id="calendarTriggerLabel">Select week</span>
                         </button>
-                        <section id="calendarPanel" class="calendar-panel" role="dialog" aria-label="Week calendar" hidden>
-                            <p class="calendar-panel-title">Choose a calendar date</p>
+                        <section id="calendarPanel" class="calendar-panel" role="dialog" aria-modal="false" aria-labelledby="calendarPanelTitle" aria-describedby="calendarWeekHint" hidden>
+                            <p class="calendar-panel-title" id="calendarPanelTitle">Choose a calendar date</p>
                             <div class="calendar-week-action">
-                                <span id="calendarWeekHint">Hover a day to preview that week</span>
+                                <span id="calendarWeekHint" role="status" aria-live="polite">Hover a day to preview that week</span>
                             </div>
                             <div class="calendar-month-nav" aria-label="Calendar month navigation">
                                 <button type="button" class="btn btn-outline-secondary btn-sm" id="calendarPrevMonth">Prev month</button>
@@ -86,6 +86,8 @@
                         </section>
                     </div>
                 </div>
+
+                <p class="visually-hidden" id="filterStatus" role="status" aria-live="polite">All rows visible</p>
             </header>
 
             <section class="kpi-row" aria-label="Roster performance summary">
@@ -149,6 +151,7 @@
                     </div>
                     <div class="table-responsive">
                         <table class="table align-middle roster-table" id="rosterTable">
+                            <caption class="visually-hidden">Weekly roster table by staff and day. Select a shift chip to load shift details.</caption>
                             <thead>
                                 <tr>
                                     <th scope="col">Staff</th>
@@ -265,6 +268,7 @@
             const calendarDaysGrid = document.getElementById('calendarDaysGrid');
             const calendarWeekHint = document.getElementById('calendarWeekHint');
             const currentRangeLabel = document.getElementById('currentRangeLabel');
+            const filterStatus = document.getElementById('filterStatus');
             const dayHeaders = rosterData.days.map((day) => day.label);
             const templateDayOrder = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
             let shiftButtons = [];
@@ -448,7 +452,8 @@
                     const shift = staff.shifts[day.key] || { type: 'off', time: 'Off duty', notes: 'No assignment set.' };
                     const type = shift.type;
                     const label = type === 'off' ? 'Off' : titleCase(type);
-                    return '<td><button class="shift-chip ' + type + '" data-staff="' + staff.name + '" data-department="' + staff.department + '" data-day="' + day.key + '" data-shift="' + type + '" data-time="' + shift.time + '" data-notes="' + shift.notes + '">' + label + '</button></td>';
+                    const ariaLabel = staff.name + ', ' + staff.department + ', ' + prettyDay(day.key) + ', ' + label + ' shift, ' + shift.time;
+                    return '<td><button type="button" class="shift-chip ' + type + '" data-staff="' + staff.name + '" data-department="' + staff.department + '" data-day="' + day.key + '" data-shift="' + type + '" data-time="' + shift.time + '" data-notes="' + shift.notes + '" aria-label="' + ariaLabel + '" aria-pressed="false">' + label + '</button></td>';
                 }).join('');
             }
 
@@ -569,6 +574,7 @@
                 const shift = shiftFilter.value;
                 const dept = deptFilter.value;
                 const anyFilterActive = staff !== 'all' || dept !== 'all' || shift !== 'all';
+                let highlightedRows = 0;
 
                 const rows = Array.from(rosterBody.querySelectorAll('tr'));
                 rows.forEach((row) => {
@@ -595,7 +601,21 @@
 
                     row.classList.toggle('row-highlight', anyFilterActive && rowHasVisibleCell);
                     row.classList.toggle('row-muted', anyFilterActive && !rowHasVisibleCell);
+                    if (anyFilterActive && rowHasVisibleCell) {
+                        highlightedRows += 1;
+                    }
                 });
+
+                if (!filterStatus) {
+                    return;
+                }
+
+                if (!anyFilterActive) {
+                    filterStatus.textContent = rows.length + ' staff rows visible. No filters applied.';
+                    return;
+                }
+
+                filterStatus.textContent = highlightedRows + ' of ' + rows.length + ' staff rows match current filters.';
             }
 
             function applyMobileDayLabels() {
@@ -611,8 +631,12 @@
             function bindShiftSelection() {
                 shiftButtons.forEach((btn) => {
                     btn.addEventListener('click', () => {
-                        shiftButtons.forEach((b) => b.classList.remove('selected'));
+                        shiftButtons.forEach((b) => {
+                            b.classList.remove('selected');
+                            b.setAttribute('aria-pressed', 'false');
+                        });
                         btn.classList.add('selected');
+                        btn.setAttribute('aria-pressed', 'true');
                         const shiftDate = getDateForDayKey(btn.dataset.day);
                         const detailDayText = prettyDay(btn.dataset.day) + (shiftDate ? ' | ' + formatDetailDate(shiftDate) : '');
                         details.staff.textContent = btn.dataset.staff;
