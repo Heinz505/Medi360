@@ -268,6 +268,7 @@
             const viewButtons = Array.from(document.querySelectorAll('[data-view]'));
             const densityButtons = Array.from(document.querySelectorAll('[data-density]'));
             const rosterTable = document.getElementById('rosterTable');
+            const dayHeaders = Array.from(rosterTable.querySelectorAll('thead th')).slice(1).map((th) => th.textContent.trim());
             const details = {
                 staff: document.getElementById('detailStaff'),
                 department: document.getElementById('detailDepartment'),
@@ -295,6 +296,16 @@
                     const okDay = day === 'all' || btn.dataset.day === day;
                     const visible = okStaff && okShift && okDept && okDay;
                     btn.closest('td').classList.toggle('cell-muted', !visible);
+                });
+            }
+
+            function applyMobileDayLabels() {
+                const rows = Array.from(document.querySelectorAll('#rosterBody tr'));
+                rows.forEach((row) => {
+                    const cells = Array.from(row.querySelectorAll('td'));
+                    cells.forEach((cell, index) => {
+                        cell.setAttribute('data-day', dayHeaders[index] || 'Day');
+                    });
                 });
             }
 
@@ -349,6 +360,7 @@
                 }
             });
 
+            applyMobileDayLabels();
             applyFilters();
         })();
     </script>

@@ -1100,8 +1100,58 @@ textarea:focus-visible {
         justify-content: space-between;
     }
 
-    .roster-table {
-        min-width: 46rem;
+    .roster-card .table-responsive {
+        overflow-x: visible;
+    }
+
+    .roster-table,
+    .roster-table tbody,
+    .roster-table tr,
+    .roster-table th,
+    .roster-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .roster-table thead {
+        display: none;
+    }
+
+    .roster-table tbody tr {
+        border: 1px solid #dbe5ef;
+        border-radius: 0.85rem;
+        background: #f8fbff;
+        padding: 0.55rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .roster-table tbody th {
+        min-width: 0;
+        border: 0;
+        padding: 0.25rem 0.35rem 0.5rem;
+    }
+
+    .roster-table tbody td {
+        border: 0;
+        padding: 0.25rem 0.35rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.7rem;
+    }
+
+    .roster-table tbody td::before {
+        content: attr(data-day);
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: #4c647b;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+
+    .roster-table .shift-chip {
+        max-width: 8rem;
+        margin-left: auto;
     }
 }
 
